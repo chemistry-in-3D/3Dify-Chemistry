@@ -1,6 +1,6 @@
 ---
 layout: page  
-title: Vibrations (5)
+title: Vibrations
 permalink: /Vibrations/  
 nav_order: 3 
 ---
