@@ -1,6 +1,6 @@
 ---
 layout: page  
-title: Reactions (19)
+title: Reactions
 permalink: /Reactions/  
 nav_order: 3 
 ---
