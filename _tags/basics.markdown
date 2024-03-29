@@ -1,6 +1,6 @@
 ---
 layout: page  
-title: Basics (18)
+title: Basics
 permalink: /Basics/  
 nav_order: 4
 ---
