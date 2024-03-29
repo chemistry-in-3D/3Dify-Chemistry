@@ -1,6 +1,6 @@
 ---
 layout: page  
-title: Conformers (13)
+title: Conformers
 permalink: /Conformers/  
 nav_order: 3 
 ---
