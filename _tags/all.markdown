@@ -1,6 +1,6 @@
 ---
 layout: page  
-title: All (51)
+title: All
 permalink: /All/  
 nav_order: 2 
 ---
