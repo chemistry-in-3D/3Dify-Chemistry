@@ -1,0 +1,68 @@
+---
+title: Half-Chair Cyclohexane
+author: Dennis Svatunek
+date: 28.01.2024
+version: 1.0
+initial_date: 28.01.2024
+model_id: D0608
+image: "D0608.png"
+tags: 
+  - Basics
+  - Stereochemistry
+  - Conformers
+license: CC BY-NC
+description: |
+  Half-Chair Cyclohexane
+layout: data_layout
+---
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://3Dmol.org/build/3Dmol-min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<div style="text-align: center;">
+<div id="D0608" style="margin: auto; width: 500px; height: 500px;"></div>
+</div>
+<script>
+(function() {
+$(document).ready(function() {
+
+var viewer = $3Dmol.createViewer("D0608", {defaultcolors: $3Dmol.elementColors.Jmol});
+	
+    var xyz = `18
+0 1
+C    -1.077407  0.919728  0.365166
+C     0.163789  1.407215 -0.364760
+C    -1.429518 -0.483799 -0.106335
+C     1.377304  0.617944  0.105539
+C    -0.243764 -1.474134 -0.122293
+C     1.181508 -0.914639  0.122809
+H    -1.925434  1.584862  0.187940
+H    -0.893793  0.934568  1.445102
+H     0.018620  1.293071 -1.444570
+H     0.332868  2.471450 -0.186775
+H    -1.833495 -0.396193 -1.118382
+H    -2.241383 -0.890390  0.499709
+H     1.614447  0.957394  1.117127
+H     2.248038  0.871600 -0.501900
+H    -0.426761 -2.257112  0.615256
+H    -0.250153 -1.989164 -1.084277
+H     1.537047 -1.287124  1.084808
+H     1.848087 -1.365275 -0.614166`; 
+
+    viewer.addModel(xyz, "xyz");
+    viewer.setStyle({}, {stick: {radius: 0.15}, sphere: {scale: 0.25}});
+    viewer.zoomTo();
+	    viewer.rotate(90, {vx: 1, vy: 0, vz: 0});
+	viewer.rotate(180, {vx: 0, vy: 0, vz: 1});
+	viewer.rotate(35, {vx: 0, vy: 1, vz: 0});
+	viewer.rotate(10, {vx: 1, vy: 0, vz: 0});
+    viewer.zoom(1.4);
+	viewer.setBackgroundColor('#f9f9f9');
+    viewer.setViewStyle({style: 'outline', color: 'black', width: 0.02});
+    viewer.render();
+	
+$("#D0608").css("position", "relative");
+
+  });
+})();  
+</script>
+

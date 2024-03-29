@@ -1,0 +1,72 @@
+---
+title: 1,2-dimethylcyclohexanes
+author: Dennis Svatunek
+date: 24.02.2024
+version: 1.0
+initial_date: 24.02.2024
+model_id: D0613
+image: "D0613.png"
+tags: 
+  - Basics
+  - Stereochemistry
+  - Conformers
+license: CC BY-NC
+description: |
+  1,2-dimethylcyclohexanes
+layout: data_layout
+---
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://3Dmol.org/build/3Dmol-min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+
+<div style="text-align: center;">
+
+
+<div style="text-align: center; background-color: #f9f9f9; border-radius: 10px; padding: 20px; display: inline-block;">
+    <div style="position: relative; display: inline-block; margin: 10px;">
+        <div style="position: absolute; width: 100%; text-align: center; font-size: 24px; font-weight: bold; top: -25px;z-index: 100;">cis</div>
+        <div id="D0613_1" style="width: 300px; height: 300px; display: inline-block;"></div>
+    </div>
+    <div style="position: relative; display: inline-block; margin: 10px;">
+        <div style="position: absolute; width: 100%; text-align: center; font-size: 24px; font-weight: bold; top: -25px;z-index: 100;">trans</div>
+        <div id="D0613_2" style="width: 300px; height: 300px; display: inline-block;"></div>
+    </div>
+</div>
+
+
+
+</div>
+<script>
+(function() {
+$(document).ready(function() {
+
+var viewerCis = $3Dmol.createViewer("D0613_1", {defaultcolors: $3Dmol.elementColors.Jmol});
+        var viewerTrans = $3Dmol.createViewer("D0613_2", {defaultcolors: $3Dmol.elementColors.Jmol});
+        
+        
+        var xyzCis = `24\nC8H16\nC 1.138 1.028 -0.764\nC -0.384 0.971 -0.438\nC -0.870 -0.517 -0.471\nC -0.025 -1.412 0.474\nC 1.486 -1.326 0.156\nC 1.984 0.139 0.178\nH -0.921 1.506 -1.251\nH 1.290 0.685 -1.809\nH 1.490 2.078 -0.720\nH -0.202 -1.108 1.527\nH -0.373 -2.461 0.393\nH 2.066 -1.942 0.871\nH 1.668 -1.754 -0.853\nH 1.931 0.530 1.214\nH 3.050 0.185 -0.119\nH -0.682 -0.876 -1.508\nC -2.382 -0.664 -0.194\nH -2.978 -0.004 -0.853\nH -2.713 -1.705 -0.369\nH -2.628 -0.410 0.853\nC -0.714 1.707 0.884\nH -0.328 2.743 0.852\nH -1.804 1.763 1.055\nH -0.263 1.212 1.763\n`; 
+        var xyzTrans = `24\nC8H16\nC 1.141 1.028 -0.755\nC -0.380 0.962 -0.443\nC -0.883 -0.517 -0.469\nC -0.021 -1.403 0.473\nC 1.488 -1.324 0.152\nC 1.983 0.139 0.186\nH -0.529 1.339 0.595\nH 1.300 0.703 -1.807\nH 1.482 2.081 -0.697\nH -0.191 -1.074 1.521\nH -0.373 -2.452 0.412\nH 2.064 -1.945 0.865\nH 1.670 -1.748 -0.858\nH 1.905 0.527 1.223\nH 3.054 0.192 -0.093\nH -0.742 -0.891 -1.509\nC -2.379 -0.648 -0.105\nH -3.032 -0.132 -0.829\nH -2.682 -1.712 -0.080\nH -2.576 -0.220 0.897\nC -1.164 1.879 -1.409\nH -1.102 1.497 -2.447\nH -2.232 1.955 -1.139\nH -0.744 2.902 -1.402\n`; 
+
+        viewerCis.addModel(xyzCis, "xyz");
+        viewerCis.setStyle({}, {stick: {radius: 0.15}, sphere: {scale: 0.25}});
+        viewerCis.zoomTo({serial: ["0-5"]});
+		viewerCis.rotate(-90, {vx: 1, vy: 0, vz: 0});
+		viewerCis.rotate(180, {vx: 0, vy: 1, vz: 0});
+		viewerCis.zoom(1.1);
+        viewerCis.setBackgroundColor('#f9f9f9');
+		viewerCis.render();
+        viewerTrans.addModel(xyzTrans, "xyz");
+        viewerTrans.setStyle({}, {stick: {radius: 0.15}, sphere: {scale: 0.25}});
+        viewerTrans.zoomTo({serial: ["0-5"]});
+		viewerTrans.rotate(-90, {vx: 1, vy: 0, vz: 0});
+		viewerTrans.rotate(180, {vx: 0, vy: 1, vz: 0});
+		viewerTrans.zoom(1.1);
+        viewerTrans.setBackgroundColor('#f9f9f9');
+        viewerTrans.render();
+	
+$("#D0613_1").css("position", "relative");
+$("#D0613_2").css("position", "relative");
+  });
+})(); 
+</script>
+

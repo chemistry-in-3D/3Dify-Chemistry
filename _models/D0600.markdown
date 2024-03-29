@@ -1,0 +1,111 @@
+---
+title: Symmetry of H<sub>2</sub>O
+author: Dennis Svatunek
+date: 12.01.2024
+version: 1.0
+initial_date: 12.01.2024
+model_id: D0600
+image: "D0600.png"
+tags: 
+  - Basics
+license: CC BY-NC
+description: |
+  Symmetry operations of water
+layout: data_layout
+---
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://3Dmol.org/build/3Dmol-min.js"></script>
+<div style="text-align: center;">
+<div id="D0600" style="margin: auto; width: 400px; height: 400px;"></div>
+<button id="togglePlaneButton">Toggle Planes</button>
+<button id="toggleAxisButton">Toggle Axis</button>
+
+</div>
+<script>
+(function() {
+  $(document).ready(function() {
+    var viewer = $3Dmol.createViewer("D0600", {defaultcolors: $3Dmol.elementColors.Jmol});
+    var xyz = `3
+0 1
+O     0.000  0.000000 -0.3970
+H     0.000  0.759337  0.1990
+H     0.000 -0.759337  0.1990
+    `; 
+    viewer.addModel(xyz, "xyz");
+    viewer.setStyle({}, {stick: {radius: 0.15}, sphere: {scale: 0.25}});
+    viewer.zoomTo();
+    viewer.zoom(2);
+    viewer.setBackgroundColor('#f9f9f9');
+    viewer.rotate(-90, {vx: 0, vy: 1, vz: 0});
+    viewer.rotate(90, {vx: 0, vy: 0, vz: 1});
+    viewer.setViewStyle({style: 'outline', color: 'black', width: 0.02});
+	viewer.render();
+	var planeAdded = false;
+	var plane; 
+	var plane2; 
+	var squareSpec = {
+  vertexArr: [
+    { x: 1.5, y: 0, z: 1 },
+    { x: 1.5, y: 0, z: -1.2 },
+    { x: -1.5, y: 0, z: -1.2 },
+    { x: -1.5, y: 0, z: 1 }
+  ],
+  faceArr: [0, 1, 2, 0, 2, 3],
+  color: 'grey',
+  opacity: 0.7,
+  wireframe: false
+};
+	var squareSpec2 = {
+  vertexArr: [
+    { x: 0, y: 1.5, z: 1 },
+    { x: 0, y: 1.5, z: -1.2 },
+    { x: 0, y: -1.5, z: -1.2 },
+    { x: 0, y: -1.5, z: 1 }
+  ],
+  faceArr: [0, 1, 2, 0, 2, 3],
+  color: 'grey',
+  opacity: 0.7,
+  wireframe: false
+};
+	document.getElementById('togglePlaneButton').onclick = function() {
+	  if (!planeAdded) {
+		plane1 = viewer.addCustom(squareSpec);
+		plane2 = viewer.addCustom(squareSpec2);
+		label1 = viewer.addLabel("Mirror Plane", {position: {x: -1.5, y: 0, z: -1.5}, fontSize: 18, fontColor: 'black', backgroundOpacity: 0, alignment: "center"});
+		label2 = viewer.addLabel("Mirror Plane", {position: {x: 0.0, y: 1.5, z: -1.5}, fontSize: 18, fontColor: 'black', backgroundOpacity: 0, alignment: "center"});
+		planeAdded = true;
+	  } else {
+		viewer.removeShape(plane1);
+		viewer.removeLabel(label1);
+		viewer.removeShape(plane2);
+		viewer.removeLabel(label2);
+		planeAdded = false;
+	  }
+	  viewer.render();
+	};
+	var axisAdded = false;
+	document.getElementById('toggleAxisButton').onclick = function() {
+	  if (!axisAdded) {
+		axis = viewer.addCylinder({
+			dashed:false,
+			radius:.005,
+			start:{x:0, y:0, z:-2},
+			end:{x:0, y:0, z:2},
+			fromCap:0,
+			toCap:0,
+			color:"black",
+		});
+		axislabel = viewer.addLabel("C2 Rotation Axis", {position: {x: 0.0, y: 0, z: -2.3}, fontSize: 18, fontColor: 'black', backgroundOpacity: 0, alignment: "center"});
+		axisAdded = true;
+	  } else {
+		viewer.removeShape(axis);
+		viewer.removeLabel(axislabel);
+		axisAdded = false;
+	  }
+	  viewer.render();
+	};
+$("#D0600").css("position", "relative");
+  });
+})(); 
+</script>
+

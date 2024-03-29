@@ -1,0 +1,237 @@
+---
+title: Mirror Images of Achiral Compounds Can be Aligned
+author: Dennis Svatunek
+date: 21.01.2024
+version: 1.0
+initial_date: 21.01.2024
+model_id: D0602
+image: "D0602.png"
+tags: 
+  - Basics
+  - Stereochemistry
+license: CC BY-NC
+description: |
+  Demo for Mirror Images of Achiral Compounds Can be Aligned
+layout: data_layout
+---
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://3Dmol.org/build/3Dmol-min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+
+<div style="text-align: center;">
+
+
+<div id="D0602" style="margin: auto; width: 600px; height: 300px;"></div>
+
+<div id="text-content" style="display: flex; justify-content: center; align-items: center; margin: auto; width: 600px; height: 100px; background-color: #f9f9f9; text-align: center; font-size: 18px; color: #000; font-weight: bold;">
+</div>
+
+<button id="resetButton">Reset</button>
+</div>
+<script>
+(function() {
+$(document).ready(function() {
+var textContainer = document.getElementById("text-content");
+var messages = ["Let's figure out the configuration of this molecule.", "Bromine has the highest atomic number. It has priority 1.", "Chlorine has the 2nd highest atomic number.", "Fluorine is number 3 in this example.", "Hydrogen has the lowest priority.", "Now let's rotate the molecule so the lowest priority residue is in the back.", "Substituents 1, 2, and 3 are oriented counter-clockwise. It's S configured!"];
+
+function updateText(step) {
+  if (step < messages.length) {
+    textContainer.textContent = messages[step];
+  }
+}
+
+var viewers = $3Dmol.createViewerGrid('D0602', {
+    rows: 1,
+    cols: 2,
+    control_all: false },{ 
+defaultcolors: $3Dmol.elementColors.Jmol, nomouse: false});
+function initializeViewer() {
+	
+    var xyz = `5
+0 1
+ C  0.0 0.0  0.00
+ H  0.356	0.5043	-0.873
+ H 	-1.069	0.0	0.0
+ F 	0.45	0.6363	1.102
+ Cl	0.586	-1.6594	0.0 
+    `; 
+
+	var viewer = viewers[0][0];
+    viewer.clear();
+	viewer.control_all = false;
+    viewer.addModel(xyz, "xyz");
+    viewer.setStyle({}, {stick: {radius: 0.15, colorscheme: {'prop': 'elem', map: {'F': '#00ffff'}}}, sphere: {scale: 0.25, colorscheme: {'prop': 'elem', map: {'F': '#00ffff'}}}});
+    viewer.zoomTo({x:0.0, y:0.0,z:0.0});
+    viewer.zoom(2);
+	viewer.setView([    0,    0,    0,    135.82179545095573,0, 0, 0, 1]);
+    viewer.setBackgroundColor('#f9f9f9');
+    viewer.setViewStyle({style: 'outline', color: 'black', width: 0.02});
+    viewer.render();
+	
+	
+    var xyz2 = `5
+0 1
+ C  0.0 0.0  0.00
+ H  0.356	0.5043	-0.873
+ H 	-1.069	0.0	0.0
+ F 	0.45	0.6363	1.102
+ Cl	0.586	-1.6594	0.0 
+    `; 
+	
+	var viewer = viewers[0][1];
+    viewer.clear();
+	viewer.control_all = false;
+    viewer.addModel(xyz2, "xyz");
+    viewer.setStyle({}, {stick: {radius: 0.15, colorscheme: {'prop': 'elem', map: {'F': '#00ffff'}}}, sphere: {scale: 0.25, colorscheme: {'prop': 'elem', map: {'F': '#00ffff'}}}});
+    viewer.zoomTo({x:0.0, y:-0.0,z:0.000});
+    viewer.zoom(2);
+	viewer.setView([    0,    0,    0,    135.82179545095573,-0.2883748, 0.8166027, 0, 0.5]);// rotate across C-Cl bond -120 degree
+	viewer.rotate(180,{vx:0, vy:1,vz:0});
+    viewer.setBackgroundColor('#f9f9f9');
+    viewer.setViewStyle({style: 'outline', color: 'black', width: 0.02});
+    viewer.render();
+	
+	updateText(0);
+}
+
+initializeViewer()
+
+function trackAlignment() {
+    var viewer1 = viewers[0][0];
+    var viewer2 = viewers[0][1];
+
+    var view1 = viewer1.getView();
+    var view2 = viewer2.getView();
+
+function quaternionDot(q1, q2, weights) {
+    return weights[0] * q1[0] * q2[0] + weights[1] * q1[1] * q2[1] + weights[2] * q1[2] * q2[2] + weights[3] * q1[3] * q2[3];
+}
+
+function quaternionDistance(q1, q2, weights) {
+    var dot = quaternionDot(q1, q2, weights);
+    return 2 * Math.acos(Math.min(Math.max(Math.abs(dot), -1), 1)); // Clamping the value between -1 and 1 for safety
+}
+
+// Example weights: assuming you want to reduce the influence of the 'w' component
+var weights = [1, 1, 1, 1]; // Adjust these weights as needed
+
+var distance = quaternionDistance(view1.slice(4, 8), view2.slice(4, 8), weights);
+
+
+textContainer.textContent = "Quaternion Distance: " + distance.toFixed(4);
+
+    return distance;
+}
+
+function slerp(q1, q2, t) {
+    var dot = q1[0] * q2[0] + q1[1] * q2[1] + q1[2] * q2[2] + q1[3] * q2[3];
+
+    // If dot is negative, invert one quaternion to reduce spinning
+    if (dot < 0) {
+        q1 = q1.map(x => -x);
+        dot = -dot;
+    }
+
+    // If the quaternions are very close, linearly interpolate
+    if (dot > 0.9995) {
+        return q1.map((x, i) => x + t * (q2[i] - x));
+    }
+    const theta_0 = Math.acos(dot); // initial angle
+    const theta = theta_0 * t; // angle at t
+    const sin_theta = Math.sin(theta);
+    const sin_theta_0 = Math.sin(theta_0);
+    const s0 = Math.cos(theta) - dot * sin_theta / sin_theta_0;
+    const s1 = sin_theta / sin_theta_0;
+    return q1.map((x, i) => (s0 * x) + (s1 * q2[i]));
+}
+
+function linearInterpolate(value1, value2, t) {
+    return value1 + (value2 - value1) * t;
+}
+
+var isAligned = false; // Flag to check if alignment is done
+
+function alignViewers() {
+    var viewer1 = viewers[0][0];
+    var viewer2 = viewers[0][1];
+    var t = 0;
+    var alignInterval = setInterval(function() {
+        var distance = trackAlignment();
+        // Update text based on alignment distance
+        if (distance < 0.4) {
+            textContainer.innerHTML  = "Aligned!<br>(distance: " + distance.toFixed(4) + ")";
+            
+        } else if (distance < 0.5) {
+            textContainer.innerHTML  = "Very close!<br>(distance: " + distance.toFixed(4) + ")";
+        } else if (distance < 0.6) {
+            textContainer.innerHTML  = "Close!<br>(distance: " + distance.toFixed(4) + ")";
+        } else {
+            textContainer.innerHTML  = "Try to align these molecules!<br>(distance: " + distance.toFixed(4) + ")";
+        }
+
+        // Align only if distance is under 0.3 and alignment is not done
+        if (distance < 0.4 && !isAligned) {
+            var view1 = viewer1.getView();
+            var view2 = viewer2.getView();
+			setMouseControl(false);
+            t += 0.01; // Increment for gradual alignment
+            if (t > 1) t = 1;
+
+            // Perform alignment
+            // Linearly interpolate x, y, z, and zoom
+            var newX = linearInterpolate(view2[0], view1[0], t);
+            var newY = linearInterpolate(view2[1], view1[1], t);
+            var newZ = linearInterpolate(view2[2], view1[2], t);
+            var newZoom = linearInterpolate(view2[3], view1[3], t);
+
+            // SLERP for quaternion
+            var newQuaternion = slerp(view2.slice(4, 8), view1.slice(4, 8), t);
+
+            // Combine the interpolated values
+            var newView = [newX, newY, newZ, newZoom].concat(newQuaternion);
+            viewer2.setView(newView);
+        }
+
+        // Stop the alignment if the distance is below the threshold
+        if (distance < 0.00005) {
+            clearInterval(alignInterval);
+            isAligned = true;
+			setMouseControl(true);
+            // Re-enable mouse control and set control_all to true
+            viewer1.noMouse = false;
+            viewer2.noMouse = false;
+            viewer1.control_all = true;
+            viewer2.control_all = true;
+
+        }
+    }, 50);
+}
+
+// Call this function to start alignment
+alignViewers();
+
+// Reset functionality
+document.getElementById('resetButton').addEventListener('click', function() {
+    initializeViewer();
+    isAligned = false;
+    alignViewers(); // Restart alignment monitoring
+});
+
+function setMouseControl(enable) {
+    var canvases = document.querySelectorAll('#D0602 canvas');
+    canvases.forEach(canvas => {
+        if (!enable) {
+            canvas.style.pointerEvents = 'none';
+        } else {
+            canvas.style.pointerEvents = 'auto';
+        }
+    });
+}
+
+$("#text-content").css("position", "relative");
+$("#D0602").css("position", "relative");
+
+  });
+})();
+</script>
+

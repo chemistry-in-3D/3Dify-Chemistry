@@ -1,0 +1,72 @@
+---
+title: Equatorial Methyl-Cyclohexane
+author: Dennis Svatunek
+date: 22.01.2024
+version: 1.0
+initial_date: 22.01.2024
+model_id: D0605
+image: "D0605.png"
+tags: 
+  - Basics
+  - Stereochemistry
+  - Conformers
+license: CC BY-NC
+description: |
+  Equatorial Methyl-Cyclohexane
+layout: data_layout
+---
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://3Dmol.org/build/3Dmol-min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+
+<div style="text-align: center;">
+
+
+<div id="D0605" style="margin: auto; width: 500px; height: 500px;"></div>
+
+
+
+</div>
+<script>
+(function() {
+$(document).ready(function() {
+
+var viewer = $3Dmol.createViewer("D0605", {defaultcolors: $3Dmol.elementColors.Jmol});
+	
+    var xyz = `21
+0 1
+C    -1.030297381948   0.000016492866  -0.326369045526
+C    -0.318519637611   1.256566045077   0.193727514177
+C    -0.318600296283  -1.256564356155   0.193764096886
+C     1.155757054125   1.257708912539  -0.219923968603
+C     1.155680220504  -1.257813112771  -0.219875287263
+C     1.862054333771  -0.000063806865   0.292151145558
+C    -2.502635043021   0.000069145840   0.093486386994
+H    -0.981433172316  -0.000001710830  -1.425133243598
+H    -0.392655841410   1.293783082871   1.286534440265
+H    -0.810805777691   2.149112963184  -0.204920683084
+H    -0.810938872162  -2.149089428556  -0.204868211406
+H    -0.392748539658  -1.293751477709   1.286571071288
+H     1.648993046819   2.147605808754   0.182756433432
+H     1.228798815204   1.299433937172  -1.312397889557
+H     1.228728377272  -1.299590956434  -1.312346769345
+H     1.648857258359  -2.147723475487   0.182847914731
+H     2.903731877119  -0.000102387323  -0.042684061594
+H     1.861481724870  -0.000042502138   1.387792321345
+H    -3.007176226833   0.885274786436  -0.295443286424
+H    -3.007236551077  -0.885106756902  -0.295432638373
+H    -2.591435371234   0.000078793746   1.181063761894`; 
+
+    viewer.addModel(xyz, "xyz");
+    viewer.setStyle({}, {stick: {radius: 0.15}, sphere: {scale: 0.25}});
+    viewer.zoomTo();
+    viewer.zoom(1.4);
+	viewer.setView([0.07001904777147622,0.000009523937380954239,-0.020061904847476195,125.64359090191145,-0.018223644500130698,0.6343020528516617,0.770602132866828,-0.059170578418636315]);
+	viewer.setBackgroundColor('#f9f9f9');
+    viewer.setViewStyle({style: 'outline', color: 'black', width: 0.02});
+    viewer.render()
+$("#D0605").css("position", "relative");
+  });
+})();
+</script>
+

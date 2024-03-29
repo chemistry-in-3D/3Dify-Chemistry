@@ -1,0 +1,59 @@
+---
+title: Diels-Alder Transition State &ndash; 1
+author: Max Lehner, Dennis Svatunek
+date: 11.01.2024
+version: 1.0
+initial_date: 11.01.2024
+model_id: D0402
+image: "D0402.png"
+tags: 
+  - Vibrations
+  - Reactions
+license: CC BY-NC
+description: |
+  Transition state between ethylene and 1,3-butadiene
+layout: data_layout
+---
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://3Dmol.org/build/3Dmol-min.js"></script>
+<div style="text-align: center;">
+<div id="D0402" style="margin: auto; width: 400px; height: 400px;"></div>
+</div>
+<script>
+(function() {
+  $(document).ready(function() {
+    var viewer = $3Dmol.createViewer("D0402", {defaultcolors: $3Dmol.elementColors.Jmol});
+    var xyz = `16 
+    * (null), Energy   -276.0000000  
+    C -1.609390 -0.693786 -0.228737  0.40  -0.08   0.13
+	C -1.607883  0.696798 -0.229117  0.40   0.08   0.13
+	C  0.470743  1.451640  0.498386 -0.36  -0.13  -0.12
+	C  1.333020  0.708618 -0.298142 -0.02  -0.05  -0.02
+	C  1.331206 -0.711330 -0.298232 -0.02   0.05  -0.02
+	C  0.467194 -1.452328  0.498381 -0.36   0.13  -0.12
+	H  0.416842  2.547074  0.388711 -0.29  -0.11  -0.07
+	H -1.484881  1.251719 -1.170809 -0.08  -0.03  -0.01
+	H -2.093806  1.252281  0.588655 -0.03  -0.04  -0.04
+	H  0.125301 -1.063021  1.468280  0.13  -0.01   0.12
+	H -1.487617 -1.249271 -1.170253 -0.08   0.03  -0.01
+	H  0.410763 -2.547633  0.388638 -0.29   0.11  -0.07
+	H -2.096750 -1.247686  0.589248 -0.03   0.04  -0.04
+	H  0.127519  1.062863  1.468011  0.13   0.01   0.12
+	H  1.885070 -1.226223 -1.102955  0.06  -0.01   0.08
+	H  1.888224  1.222224 -1.102764  0.06   0.01   0.08
+    `; 
+    viewer.addModel(xyz, "xyz");
+    viewer.vibrate(10, 0.8, true);
+    viewer.setStyle({}, {stick: {radius: 0.15}, sphere: {scale: 0.25}});
+    viewer.zoomTo();
+    viewer.zoom(1.4);
+    viewer.setBackgroundColor('#f9f9f9');
+    viewer.rotate(80, {x: 1, y: 0, z: 0});
+	viewer.setView([0.12027781249999998,-0.0001211874999999113,-0.01795631250000003,130.68219630192718,-0.006246902851450353,0.16876950883486358,0.7346235428630277,0.6571195320212124]);
+    viewer.setViewStyle({style: 'outline', color: 'black', width: 0.02});
+    viewer.animate({loop: 'backandforth', interval: 100, reps: 0});
+    viewer.render();
+$("#D0402").css("position", "relative");
+  });
+})(); 
+</script>

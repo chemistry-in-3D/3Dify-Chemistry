@@ -1,0 +1,113 @@
+---
+title: Double bonds vs. single bonds
+author: Dennis Svatunek
+date: 31.01.2024
+version: 1.0
+initial_date: 31.01.2024
+model_id: D0001
+image: "D0001.png"
+tags: 
+  - Basics
+  - 3DStructures
+license: CC BY-NC
+description: |
+  Double bonds vs. single bonds
+layout: data_layout
+---
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://3Dmol.org/build/3Dmol-min.js"></script>
+
+<div style="text-align: center;">
+
+
+<div id="D0001" style="margin: auto; width: 500px; height: 500px;"></div>
+<button id="toggleMolecule_D0001">Switch Respresentation</button>
+
+
+
+</div>
+<script>
+(function() {
+$(document).ready(function() {
+
+
+	
+    var xyz_sdf = `symmetry c1
+ OpenBabel01312416543D
+
+ 12 12  0  0  0  0  0  0  0  0999 V2000
+   -0.0088   -0.3472   -1.0777 C   0  0  0  0  0  0  0  0  0  0  0  0
+   -1.1648   -0.7019   -0.3795 C   0  0  0  0  0  0  0  0  0  0  0  0
+    1.1473    0.0075   -0.3795 C   0  0  0  0  0  0  0  0  0  0  0  0
+   -2.0643   -0.9778   -0.9227 H   0  0  0  0  0  0  0  0  0  0  0  0
+    2.0467    0.2835   -0.9227 H   0  0  0  0  0  0  0  0  0  0  0  0
+   -1.1648   -0.7019    1.0168 C   0  0  0  0  0  0  0  0  0  0  0  0
+    1.1473    0.0075    1.0168 C   0  0  0  0  0  0  0  0  0  0  0  0
+   -2.0643   -0.9778    1.5600 H   0  0  0  0  0  0  0  0  0  0  0  0
+    2.0467    0.2835    1.5600 H   0  0  0  0  0  0  0  0  0  0  0  0
+   -0.0088   -0.3472    1.7150 C   0  0  0  0  0  0  0  0  0  0  0  0
+   -0.0088   -0.3472    2.8013 H   0  0  0  0  0  0  0  0  0  0  0  0
+   -0.0088   -0.3472   -2.1640 H   0  0  0  0  0  0  0  0  0  0  0  0
+  1  2  2  0  0  0  0
+  1  3  1  0  0  0  0
+  2  6  1  0  0  0  0
+  3  7  2  0  0  0  0
+  4  2  1  0  0  0  0
+  5  3  1  0  0  0  0
+  6  8  1  0  0  0  0
+  6 10  2  0  0  0  0
+  7  9  1  0  0  0  0
+  7 10  1  0  0  0  0
+ 10 11  1  0  0  0  0
+ 12  1  1  0  0  0  0
+M  END
+$$$$`; 
+
+    var xyz_xyz = `12
+symmetry c1
+C       -0.008779834     -0.347168275     -1.077670178
+C       -1.164848527     -0.701858634     -0.379506178
+C        1.147288859      0.007522084     -0.379506178
+H       -2.064273633     -0.977808857     -0.922679178
+H        2.046713966      0.283472308     -0.922679178
+C       -1.164848527     -0.701858634      1.016823822
+C        1.147288859      0.007522084      1.016823822
+H       -2.064273633     -0.977808857      1.559996822
+H        2.046713966      0.283472308      1.559996822
+C       -0.008779834     -0.347168275      1.714987822
+H       -0.008779834     -0.347168275      2.801334822
+H       -0.008779834     -0.347168275     -2.164017178
+`; 
+
+var viewer = $3Dmol.createViewer("D0001", {defaultcolors: $3Dmol.elementColors.Jmol});
+viewer.setView([0.008779833833333332,0.34716827483333335,-0.318658822,121.64359090191145,-0.659459554636028,-0.23400177745149384,0,-0.7143922339645028]);
+viewer.setBackgroundColor('#f9f9f9');
+viewer.zoom(1.4);
+
+
+function addMolecule(data, format) {
+    viewer.removeAllModels();
+    viewer.addModel(data, format);
+	viewer.setViewStyle({style: 'outline', color: 'black', width: 0.02});
+	viewer.setStyle({}, {stick: {radius: 0.15}, sphere: {scale: 0.25}});
+    viewer.render();
+}
+
+addMolecule(xyz_sdf, "sdf");
+var sdfMoleculeShown = true;
+
+
+$("#toggleMolecule_D0001").click(function() {
+    if (sdfMoleculeShown) {
+        addMolecule(xyz_xyz, "xyz");
+    } else {
+        addMolecule(xyz_sdf, "sdf");
+    }
+    sdfMoleculeShown = !sdfMoleculeShown; // Toggle the state
+});
+
+$("#D0001").css("position", "relative");
+  });
+})();
+</script>
+

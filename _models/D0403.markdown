@@ -1,0 +1,142 @@
+---
+title: SN2 chloride + methylbromide
+author: Dennis Svatunek
+date: 12.02.2024
+version: 1.0
+initial_date: 12.02.2024
+model_id: D0403
+image: "D0403.png"
+tags: 
+  - Reactions
+license: CC BY-NC
+description: |
+  SN2 chloride + methylbromide (BP86/def2SVP smd-water)
+layout: data_layout
+---
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://3Dmol.org/build/3Dmol-min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/dygraph/2.1.0/dygraph.min.js"></script>
+<div style="text-align: center;">
+<div id="content-container" style="display: flex; justify-content: center; align-items: center; gap: 20px; margin-bottom: 20px; background-color: #f9f9f9; border-radius: 15px; overflow:hidden;">
+    <div id="D0403" style="flex: 1; min-width: 200px; max-width: 500px;"></div>
+    <div id="D0403_graph" style="flex: 1; min-width: 300px; max-width: 500px; background-color: #f9f9f9;padding-right: 10px;"></div>
+</div>
+
+    <input type="range" min="0" max="100" value="0" class="slider" id="D0403_slider" style="width: 80%; display: block; margin: auto; background-color: black; margin-bottom: 20px;">
+</div>
+
+<script>
+(function() {
+function adjustSquares() {
+    var elements = document.querySelectorAll('#D0403, #D0403_graph');
+    elements.forEach(function(el) {
+        var width = el.offsetWidth;
+        if (el.id === 'D0403_graph') {
+            // Set the height of the graph to a percentage of the width, for example, 80%
+            el.style.height = (width * 0.8) + 'px'; 
+        } else {
+            el.style.height = width + 'px';
+        }
+    });
+}
+window.addEventListener('resize', adjustSquares);
+window.addEventListener('load', adjustSquares);
+var viewer; 
+var plot;
+	function step_frame(slider, viewerID) {
+		let frameNum = parseInt(slider.value);
+		viewer.setFrame(frameNum);
+		viewer.render();
+		plot.setSelection(frameNum);
+		
+		console.log("Slider frame: " + frameNum);
+	}
+
+  $(document).ready(function() {
+    viewer = $3Dmol.createViewer("D0403", {defaultcolors: $3Dmol.elementColors.Jmol});
+    var xyz = `6\nStep 15: E=-3074.23549059\nC 0.000 0.000 0.000\nH 0.352 -0.776 0.698\nH 0.348 0.995 0.321\nH 0.343 -0.218 -1.024\nBr -2.000 -0.003 0.008\nCl 3.099 -0.001 0.010\n6\nStep 14: E=-3074.2354266\nC 0.000 0.000 0.000\nH 0.351 -0.776 0.698\nH 0.347 0.994 0.322\nH 0.344 -0.217 -1.023\nBr -2.001 -0.002 0.005\nCl 3.061 0.001 0.005\n6\nStep 13: E=-3074.23530476\nC 0.000 0.000 0.000\nH 0.349 -0.777 0.697\nH 0.346 0.994 0.324\nH 0.345 -0.216 -1.023\nBr -2.002 -0.001 0.003\nCl 3.022 0.001 0.003\n6\nStep 12: E=-3074.23511863\nC 0.000 0.000 0.000\nH 0.347 -0.781 0.694\nH 0.345 0.993 0.328\nH 0.345 -0.211 -1.024\nBr -2.003 -0.000 0.002\nCl 2.984 -0.000 0.002\n6\nStep 11: E=-3074.23486393\nC 0.000 0.000 0.000\nH 0.345 -0.784 0.691\nH 0.344 0.991 0.334\nH 0.344 -0.206 -1.025\nBr -2.004 -0.000 0.001\nCl 2.945 -0.001 0.001\n6\nStep 10: E=-3074.23452741\nC 0.000 0.000 0.000\nH 0.341 -0.787 0.689\nH 0.341 0.990 0.337\nH 0.340 -0.203 -1.026\nBr -2.010 -0.000 0.000\nCl 2.903 -0.000 0.000\n6\nStep 9: E=-3074.23399537\nC 0.000 0.000 0.000\nH 0.324 -0.791 0.690\nH 0.325 0.993 0.340\nH 0.324 -0.202 -1.031\nBr -2.044 0.000 0.000\nCl 2.845 0.000 0.000\n6\nStep 8: E=-3074.23296606\nC 0.000 0.000 0.000\nH 0.302 -0.796 0.694\nH 0.303 0.999 0.342\nH 0.302 -0.203 -1.037\nBr -2.094 0.000 0.000\nCl 2.784 0.000 0.001\n6\nStep 7: E=-3074.23151338\nC 0.000 0.000 0.000\nH 0.274 -0.801 0.699\nH 0.275 1.006 0.344\nH 0.274 -0.205 -1.043\nBr -2.148 0.000 0.000\nCl 2.725 0.000 0.001\n6\nStep 6: E=-3074.22985179\nC 0.000 0.000 0.000\nH 0.237 -0.806 0.703\nH 0.237 1.012 0.346\nH 0.236 -0.207 -1.049\nBr -2.204 -0.000 0.001\nCl 2.665 -0.000 0.001\n6\nStep 5: E=-3074.22815622\nC 0.000 0.000 0.000\nH 0.200 -0.811 0.708\nH 0.200 1.019 0.348\nH 0.199 -0.208 -1.056\nBr -2.260 -0.000 0.001\nCl 2.606 -0.000 0.001\n6\nStep 4: E=-3074.22660012\nC 0.000 0.000 0.000\nH 0.155 -0.816 0.713\nH 0.155 1.026 0.349\nH 0.154 -0.210 -1.063\nBr -2.317 -0.000 0.001\nCl 2.547 -0.000 0.001\n6\nStep 3: E=-3074.22535014\nC 0.000 0.000 0.000\nH 0.107 -0.819 0.717\nH 0.107 1.031 0.350\nH 0.107 -0.212 -1.068\nBr -2.373 -0.000 0.001\nCl 2.487 -0.000 0.001\n6\nStep 2: E=-3074.22454736\nC 0.000 0.000 0.000\nH 0.055 -0.820 0.720\nH 0.055 1.033 0.350\nH 0.054 -0.214 -1.070\nBr -2.430 -0.000 0.001\nCl 2.427 -0.000 0.001\n6\nStep 1: E=-3074.2242699\nC 0.000 0.000 0.000\nH 0.001 -0.820 0.720\nH 0.001 1.033 0.350\nH 0.000 -0.214 -1.070\nBr -2.486 -0.000 0.001\nCl 2.367 -0.000 0.001\n6\nStep 1: E=-3074.2242699\nC 0.000 0.000 0.000\nH -0.053 -0.820 0.720\nH -0.054 1.034 0.350\nH -0.054 -0.214 -1.070\nBr -2.542 -0.000 0.000\nCl 2.306 -0.000 0.001\n6\nStep 2: E=-3074.2245634\nC 0.000 0.000 0.000\nH -0.106 -0.819 0.718\nH -0.106 1.031 0.350\nH -0.106 -0.213 -1.068\nBr -2.597 -0.000 0.000\nCl 2.246 -0.000 0.000\n6\nStep 3: E=-3074.22541359\nC 0.000 0.000 0.000\nH -0.154 -0.815 0.715\nH -0.154 1.027 0.348\nH -0.154 -0.212 -1.063\nBr -2.653 -0.000 0.000\nCl 2.185 -0.000 0.000\n6\nStep 4: E=-3074.22675828\nC 0.000 0.000 0.000\nH -0.200 -0.810 0.710\nH -0.200 1.020 0.346\nH -0.200 -0.210 -1.056\nBr -2.708 -0.000 0.000\nCl 2.124 -0.000 0.000\n6\nStep 5: E=-3074.22848026\nC 0.000 0.000 0.000\nH -0.242 -0.805 0.706\nH -0.242 1.014 0.344\nH -0.242 -0.209 -1.050\nBr -2.763 -0.000 0.000\nCl 2.063 -0.000 0.000\n6\nStep 6: E=-3074.23043025\nC 0.000 0.000 0.000\nH -0.276 -0.799 0.701\nH -0.276 1.007 0.341\nH -0.276 -0.208 -1.043\nBr -2.818 -0.000 0.000\nCl 2.003 -0.000 0.000\n6\nStep 7: E=-3074.23243635\nC 0.000 0.000 0.000\nH -0.309 -0.793 0.696\nH -0.309 0.999 0.339\nH -0.309 -0.206 -1.035\nBr -2.873 0.000 0.000\nCl 1.944 0.000 0.000\n6\nStep 8: E=-3074.234248\nC 0.000 0.000 0.000\nH -0.333 -0.788 0.692\nH -0.333 0.993 0.336\nH -0.333 -0.205 -1.028\nBr -2.929 0.000 0.000\nCl 1.889 0.000 0.000\n6\nStep 9: E=-3074.23558574\nC 0.000 0.000 0.000\nH -0.350 -0.785 0.689\nH -0.350 0.989 0.335\nH -0.350 -0.204 -1.024\nBr -2.982 0.000 0.000\nCl 1.854 0.000 0.000\n6\nStep 10: E=-3074.23632495\nC 0.000 0.000 0.000\nH -0.354 -0.784 0.689\nH -0.354 0.988 0.335\nH -0.354 -0.204 -1.023\nBr -3.021 0.000 0.000\nCl 1.848 0.000 0.000\n6\nStep 11: E=-3074.23684115\nC 0.000 0.000 0.000\nH -0.355 -0.783 0.688\nH -0.355 0.988 0.335\nH -0.356 -0.204 -1.023\nBr -3.056 0.000 -0.000\nCl 1.847 0.000 -0.000\n6\nStep 12: E=-3074.23726758\nC 0.000 0.000 0.000\nH -0.357 -0.783 0.688\nH -0.357 0.988 0.335\nH -0.357 -0.204 -1.023\nBr -3.091 0.000 -0.000\nCl 1.845 0.000 -0.000\n6\nStep 13: E=-3074.23761821\nC 0.000 0.000 0.000\nH -0.358 -0.784 0.688\nH -0.357 0.987 0.335\nH -0.358 -0.204 -1.023\nBr -3.127 0.000 -0.000\nCl 1.844 -0.000 -0.000\n6\nStep 14: E=-3074.237901\nC 0.000 0.000 0.000\nH -0.359 -0.784 0.687\nH -0.358 0.987 0.336\nH -0.359 -0.202 -1.023\nBr -3.162 0.000 -0.000\nCl 1.843 -0.000 -0.000\n6\nStep 15: E=-3074.23812405\nC 0.000 0.000 0.000\nH -0.360 -0.786 0.685\nH -0.359 0.986 0.338\nH -0.359 -0.200 -1.023\nBr -3.197 0.000 -0.000\nCl 1.842 -0.000 0.000\n6\nStep 16: E=-3074.23829394\nC 0.000 0.000 0.000\nH -0.360 -0.788 0.682\nH -0.360 0.985 0.341\nH -0.359 -0.197 -1.024\nBr -3.232 0.000 -0.000\nCl 1.841 -0.001 0.001\n6\nStep 17: E=-3074.23841644\nC 0.000 0.000 0.000\nH -0.362 -0.792 0.677\nH -0.360 0.983 0.347\nH -0.360 -0.190 -1.025\nBr -3.267 -0.001 0.000\nCl 1.840 -0.002 0.001\n6\nStep 18: E=-3074.23849688\nC 0.000 0.000 0.000\nH -0.364 -0.802 0.665\nH -0.358 0.979 0.362\nH -0.360 -0.174 -1.028\nBr -3.302 -0.004 -0.000\nCl 1.838 -0.005 0.002\n`;
+	
+	var energy=`0.00,0.04,0.12,0.23,0.39,0.60,0.94,1.58,2.50,3.54,4.60,5.58,6.36,6.87,7.04,7.04,6.86,6.32,5.48,4.40,3.18,1.92,0.78,-0.06,-0.52,-0.85,-1.12,-1.34,-1.51,-1.65,-1.76,-1.84,-1.89`;
+	
+    viewer.addModelsAsFrames(xyz, "xyz");
+	let set = {
+    interval: 50,
+    animation: 'forward',
+	}
+    viewer.setStyle({}, {stick: {radius: 0.15}, sphere: {scale: 0.25}});
+    viewer.zoomTo({x: 0, y: 0, z: 0});
+    viewer.zoom(1.1);
+    viewer.setBackgroundColor('#f9f9f9');
+    viewer.rotate(180, {x: 0, y: 1, z: 0});
+    viewer.setViewStyle({style: 'outline', color: 'black', width: 0.02});
+    viewer.render();
+	$("#D0403").css("position", "relative");
+	
+	var energyValues = energy.split(',');
+	$('#D0403_slider').attr('max', energyValues.length - 1);
+	var energyData = '';
+	for (var i = 0; i <= energyValues.length; i++) {
+		energyData += i + ',' + energyValues[i-1] + '\n';
+	}
+
+
+    plot = new Dygraph(
+        document.getElementById('D0403_graph'),
+        energyData,
+        {
+            xlabel: 'Reaction Coordinate',
+            ylabel: 'Energy [kcal/mol]',
+			showLabelsOnHighlight: false,
+			showRangeSelector: false,
+			highlightCircleSize: 5,
+			highlightSeriesBackgroundAlpha: 0,
+			xValueParser: function(x) { return parseFloat(x); },
+			colors: ["black"], // sets line color to white
+			gridLineColor: 'transparent', // sets gridline color to transparent
+			axisLineColor: 'black', // sets axis line color to white
+			axisLabelColor: 'black', // sets axis label color to white
+			valueLabelColor: 'black', // Make value labels white
+			interactionModel: {},
+			highlightCallback: function(event, x, points, row, seriesName) {
+				document.getElementById("D0403_slider").value = row;
+				step_frame(document.getElementById("D0403_slider"), 'D0403');
+			},
+        }
+    );
+
+    function updateFrameAndGraph(sliderValue) {
+        viewer.setFrame(sliderValue);
+        viewer.render();
+        plot.setSelection(sliderValue);
+    }
+
+    $('#D0403_slider').on('input', function() {
+        updateFrameAndGraph(this.value);
+    });
+  
+  });
+  
+var style = document.createElement('style');
+
+style.appendChild(document.createTextNode(`
+    .dygraph-axis-label {
+        font-family: Arial, sans-serif !important;
+        font-size: 14px !important; /* Adjust the size as needed */
+        color: black !important; /* Ensure labels are black */
+    }
+	.dygraph-axis-label-x {
+        display: none;
+    }
+	.dygraph-label {
+        font-family: Arial !important;
+		color: black !important;
+    }
+	#D0403_graph{
+    background: '#f9f9f9' !important;
+}
+.dygraph-annotation,.dygraph-legend{overflow:hidden}.dygraph-legend{position:absolute;font-size:14px;z-index:10;width:250px;background:#fff;line-height:normal;text-align:left}.dygraph-legend-dash,.dygraph-legend-line{display:inline-block;position:relative;bottom:.5ex;height:1px;border-bottom-width:2px;border-bottom-style:solid}.dygraph-legend-line{padding-left:1em}.dygraph-annotation,.dygraph-roller{position:absolute;z-index:10}.dygraph-default-annotation{border:1px solid #000;background-color:#fff;text-align:center}.dygraph-axis-label{z-index:10;line-height:normal;overflow:hidden;color:#000}.dygraph-title{font-weight:700;z-index:10;text-align:center}.dygraph-xlabel{text-align:center}.dygraph-label-rotate-left{text-align:center;transform:rotate(90deg);-webkit-transform:rotate(90deg);-moz-transform:rotate(90deg);-o-transform:rotate(90deg);-ms-transform:rotate(90deg)}.dygraph-label-rotate-right{text-align:center;transform:rotate(-90deg);-webkit-transform:rotate(-90deg);-moz-transform:rotate(-90deg);-o-transform:rotate(-90deg);-ms-transform:rotate(-90deg)}
+`));
+document.head.appendChild(style);
+adjustSquares();
+})();
+</script>

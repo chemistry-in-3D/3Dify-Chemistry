@@ -1,0 +1,73 @@
+---
+title: Boat Cyclohexane
+author: Dennis Svatunek
+date: 28.01.2024
+version: 1.0
+initial_date: 28.01.2024
+model_id: D0610
+image: "D0610.png"
+tags: 
+  - Basics
+  - Stereochemistry
+  - Conformers
+license: CC BY-NC
+description: |
+  Boat Cyclohexane
+layout: data_layout
+---
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://3Dmol.org/build/3Dmol-min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+
+<div style="text-align: center;">
+
+
+<div id="D0610" style="margin: auto; width: 500px; height: 500px;"></div>
+
+
+
+</div>
+<script>
+(function() {
+$(document).ready(function() {
+
+var viewer = $3Dmol.createViewer("D0610", {defaultcolors: $3Dmol.elementColors.Jmol});
+	
+    var xyz = `18
+0 1
+C    -1.081673  0.819912  0.407000
+C     0.156086  1.475059 -0.197043
+C    -1.377649 -0.533812 -0.231259
+C     1.383755  0.536235 -0.182775
+C    -0.149983 -1.472506 -0.218760
+C     1.068786 -0.824975  0.430168
+H    -1.944609  1.479763  0.294999
+H    -0.939667  0.693778  1.483353
+H    -0.067085  1.774675 -1.224066
+H     0.375069  2.397425  0.345058
+H    -1.708269 -0.375699 -1.260786
+H    -2.218955 -0.997638  0.287711
+H     2.208437  0.993792  0.367405
+H     1.746250  0.389859 -1.203323
+H    -0.385001 -2.401371  0.305160
+H     0.104722 -1.759263 -1.242120
+H     0.894995 -0.711700  1.503310
+H     1.934793 -1.483534  0.335969`; 
+
+    viewer.addModel(xyz, "xyz");
+    viewer.setStyle({}, {stick: {radius: 0.15}, sphere: {scale: 0.25}});
+    viewer.zoomTo();
+	viewer.rotate(90, {vx: 1, vy: 0, vz: 0});
+	viewer.rotate(180, {vx: 0, vy: 0, vz: 1});
+	viewer.rotate(35, {vx: 0, vy: 1, vz: 0});
+	viewer.rotate(10, {vx: 1, vy: 0, vz: 0});
+    viewer.zoom(1.4);
+	viewer.setBackgroundColor('#f9f9f9');
+    viewer.setViewStyle({style: 'outline', color: 'black', width: 0.02});
+    viewer.render();
+	
+$("#D0610").css("position", "relative");
+  });
+})();
+</script>
+

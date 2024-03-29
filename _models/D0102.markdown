@@ -1,0 +1,46 @@
+---
+title: Methane CH Stretch Vibration (a<sub>1</sub>) 
+author: Dennis Svatunek
+date: 11.01.2024
+version: 1.0
+initial_date: 11.01.2024
+model_id: D0102
+image: "D0102.png"
+tags: 
+  - Vibrations
+license: CC BY-NC
+description: |
+  a<sub>1</sub> CH stretch of methane (IR inactive) @~2950 cm<sup>-1</sup>
+layout: data_layout
+---
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://3Dmol.org/build/3Dmol-min.js"></script>
+<div style="text-align: center;">
+<div id="D0102" style="margin: auto; width: 400px; height: 400px;"></div>
+</div>
+<script>
+(function() {
+  $(document).ready(function() {
+    var viewer = $3Dmol.createViewer("D0102", {defaultcolors: $3Dmol.elementColors.Jmol});
+    var xyz = `5 
+    * (null), Energy   -276.0000000  
+    C    -0.337425  -0.848669   0.000000 -0.000162 0.000089 -0.000000
+    H     0.031329  -1.891697   0.000000 -0.166231 0.470259 -0.000000
+    H     0.031348  -0.327166   0.903287 -0.166660 -0.235674 -0.408110
+    H     0.031348  -0.327166  -0.903287 -0.166660 -0.235674 0.408110
+    H    -1.443716  -0.848657   0.000000  0.501478 0.000025 -0.000000
+    `; 
+    viewer.addModel(xyz, "xyz");
+    viewer.vibrate(10, 0.35, true);
+    viewer.setStyle({}, {stick: {radius: 0.15}, sphere: {scale: 0.25}});
+    viewer.zoomTo();
+    viewer.zoom(1.4);
+    viewer.setBackgroundColor('#f9f9f9');
+    viewer.rotate(80, {x: 1, y: 0, z: 0});
+    viewer.setViewStyle({style: 'outline', color: 'black', width: 0.02});
+    viewer.animate({loop: 'backandforth', interval: 100, reps: 0});
+    viewer.render();
+$("#D0102").css("position", "relative");
+  });
+})(); 
+</script>

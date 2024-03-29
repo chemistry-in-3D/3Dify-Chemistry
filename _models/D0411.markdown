@@ -1,0 +1,146 @@
+---
+title: Bürgi-Dunitz Angle Example 
+author: Dennis Svatunek
+date: 24.02.2024
+version: 1.0
+initial_date: 24.02.2024
+model_id: D0411
+image: "D0411.png"
+tags: 
+  - Reactions
+license: CC BY-NC
+description: |
+  Bürgi-Dunitz Angle Example 
+layout: data_layout
+---
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://3Dmol.org/build/3Dmol-min.js"></script>
+
+<div style="text-align: center;">
+    <div id="content-container" style="display: flex; justify-content: center; align-items: center; gap: 20px; margin-bottom: 20px; background-color: #f9f9f9; border-radius: 15px; overflow:hidden;">
+        <div id="D0411" style="flex: 1; min-width: 200px; max-width: 500px; max-height: 500px"></div>
+    </div>
+</div>
+
+<script>
+(function() {
+    function adjustSquares() {
+        var elements = document.querySelectorAll('#D0411');
+        elements.forEach(function(el) {
+            var width = el.offsetWidth;
+            el.style.height = width + 'px'; // Set the height equal to the width
+        });
+    }
+    window.addEventListener('resize', adjustSquares);
+    window.addEventListener('load', adjustSquares);
+    var viewer;
+
+    $(document).ready(function() {
+        viewer = $3Dmol.createViewer("D0411", {defaultcolors: $3Dmol.elementColors.Jmol});
+        var xyz = `12\nsymmetry c1\nC -0.684107 -0.000152 0.173965000\nO  -1.028116 -0.000457  1.407426\nC  -0.857715 -1.297645 -0.644473\nH  -1.941314 -1.446081 -0.854196\nH  -0.302926 -1.265267 -1.596823\nH  -0.502638 -2.153216 -0.047516\nC  -0.859395  1.297247 -0.644259\nH  -0.304949  1.265541 -1.596831\nH  -1.943234  1.444591 -0.853512\nH  -0.504947  2.153111 -0.047357\nC   1.518850  0.001172 -0.022277\nN   2.717018  0.000179  0.079870\n`;
+        viewer.addModel(xyz, "xyz");
+        viewer.setStyle({}, {stick: {radius: 0.15}, sphere: {scale: 0.25}});
+        viewer.zoomTo({x: -0.684, y: 0, z: 0.174});
+		viewer.zoom(1.2);
+        viewer.setBackgroundColor('#f9f9f9');
+        viewer.rotate(90, {vx: 1, vy: 0, vz: 0});
+		viewer.rotate(105, {vx: 0, vy: 0, vz: 1});
+        viewer.setViewStyle({style: 'outline', color: 'black', width: 0.02});
+        $("#D0411").css("position", "relative");
+		
+		var atom1 = viewer.getModel().selectedAtoms({index: 0})[0];
+		var atom2 = viewer.getModel().selectedAtoms({index: 10})[0];		
+		var atom3 = viewer.getModel().selectedAtoms({index: 1})[0];
+		// Add cylinder
+        viewer.addCylinder({
+            start: {x: atom1.x, y: atom1.y, z: atom1.z},
+            end: {x: atom2.x, y: atom2.y, z: atom2.z},
+            radius: 0.05, // Adjust the cylinder thickness as needed
+            color: "grey",
+			opacity: 0.8,
+			dashed: true,
+			gapLength: 0.25,
+            fromCap: 2, // Rounded caps on both ends
+            toCap: 2
+        });
+		
+		var X=1.0;
+		// Function to normalize a vector
+		function normalize(v) {
+			let length = Math.sqrt(v.x * v.x + v.y * v.y + v.z * v.z);
+			return { x: v.x / length, y: v.y / length, z: v.z / length };
+		}
+
+		// Function to calculate the cross product of two vectors
+		function crossProduct(v1, v2) {
+			return {
+				x: v1.y * v2.z - v1.z * v2.y,
+				y: v1.z * v2.x - v1.x * v2.z,
+				z: v1.x * v2.y - v1.y * v2.x
+			};
+		}
+
+		// Function to rotate a point around an axis by a given angle (using Rodrigues' rotation formula)
+		function rotateAroundAxis(p, axis, theta) {
+			let cosTheta = Math.cos(theta);
+			let sinTheta = Math.sin(theta);
+			return {
+				x: (cosTheta + (1 - cosTheta) * axis.x * axis.x) * p.x + ((1 - cosTheta) * axis.x * axis.y - axis.z * sinTheta) * p.y + ((1 - cosTheta) * axis.x * axis.z + axis.y * sinTheta) * p.z,
+				y: ((1 - cosTheta) * axis.y * axis.x + axis.z * sinTheta) * p.x + (cosTheta + (1 - cosTheta) * axis.y * axis.y) * p.y + ((1 - cosTheta) * axis.y * axis.z - axis.x * sinTheta) * p.z,
+				z: ((1 - cosTheta) * axis.z * axis.x - axis.y * sinTheta) * p.x + ((1 - cosTheta) * axis.z * axis.y + axis.x * sinTheta) * p.y + (cosTheta + (1 - cosTheta) * axis.z * axis.z) * p.z
+			};
+		}
+
+		// Calculate vectors from atom1 to atom2 and atom1 to atom3
+		let vector1 = { x: atom2.x - atom1.x, y: atom2.y - atom1.y, z: atom2.z - atom1.z };
+		let vector2 = { x: atom3.x - atom1.x, y: atom3.y - atom1.y, z: atom3.z - atom1.z };
+
+		// Normalize vectors
+		let normalizedVector1 = normalize(vector1);
+		let normalizedVector2 = normalize(vector2);
+
+		// Calculate angle between vectors
+		let dotProduct = normalizedVector1.x * normalizedVector2.x + normalizedVector1.y * normalizedVector2.y + normalizedVector1.z * normalizedVector2.z;
+		let angleBetweenVectors = Math.acos(dotProduct);
+
+		// Calculate rotation axis
+		let rotationAxis = normalize(crossProduct(normalizedVector1, normalizedVector2));
+
+		// Calculate arc points
+		let currentPoints = [];
+		let numPoints = 20; // Number of points on the arc
+		for (let i = 0; i <= numPoints; i++) {
+			let theta = (angleBetweenVectors / numPoints) * i;
+			let rotatedPoint = rotateAroundAxis(normalizedVector1, rotationAxis, theta);
+			let arcPoint = {
+				x: atom1.x + rotatedPoint.x * X,
+				y: atom1.y + rotatedPoint.y * X,
+				z: atom1.z + rotatedPoint.z * X
+			};
+			 currentPoints.push({x: arcPoint.x, y: arcPoint.y, z: arcPoint.z});
+		}
+		
+		// Add the arc to the viewer
+		viewer.addCurve({
+			points: currentPoints, 
+			radius: 0.03, // Thickness of the arc
+			smooth: 10, // Determines how smooth the curve will be
+			fromArrow: false,
+			toArrow: false,
+			color: 'black' // Arc color
+		});
+		viewer.addLabel("111°", {
+            position: {x:0.5, y:0.0, z: 1.2},
+            backgroundColor: "white",
+			backgroundOpacity: 0,
+            fontColor: "black",
+			alignment: "center",
+			font:'sans-serif',fontSize:24,
+        });	
+        viewer.render()
+
+    });
+  
+    adjustSquares();
+})();
+</script>

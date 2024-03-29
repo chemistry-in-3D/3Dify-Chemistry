@@ -1,0 +1,58 @@
+---
+title: Hardy Cope Transition State &ndash; 2
+author: Dennis Svatunek
+date: 21.02.2024
+version: 1.0
+initial_date: 21.02.2024
+model_id: D0408
+image: "D0408.png"
+tags: 
+  - Vibrations
+  - Reactions
+license: CC BY-NC
+description: |
+  Hardy Cope Transition State
+layout: data_layout
+---
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://3Dmol.org/build/3Dmol-min.js"></script>
+<div style="text-align: center;">
+<div id="D0408" style="margin: auto; width: 400px; height: 400px;"></div>
+</div>
+<script>
+(function() {
+  $(document).ready(function() {
+    var viewer = $3Dmol.createViewer("D0408", {defaultcolors: $3Dmol.elementColors.Jmol});
+    var xyz = `16 
+* (null), Energy   -276.0000000  
+C    -1.226299  0.909890 -0.256554  0.02   0.45  -0.09
+C     0.000000  1.431752  0.245120 -0.05   0.00  -0.00
+C     1.226299  0.909890 -0.256554  0.02  -0.45   0.09
+C     1.226299 -0.909890  0.256554  0.02   0.45  -0.09
+C     0.000000 -1.431752 -0.245120 -0.05   0.00  -0.00
+C    -1.226299 -0.909889  0.256554  0.02  -0.45   0.09
+H    -2.162790  1.302164  0.181672 -0.03   0.18   0.00
+H     0.000000  1.850925  1.268642 -0.01  -0.00   0.00
+H     1.308909  0.786407 -1.351569  0.03   0.08   0.01
+H     2.162790 -1.302164 -0.181672 -0.03   0.18   0.00
+H    -1.308909 -0.786407  1.351569  0.03   0.08   0.01
+H    -2.162790 -1.302163 -0.181672 -0.03  -0.18  -0.00
+H    -1.308909  0.786407 -1.351569  0.03  -0.08  -0.01
+H     1.308909 -0.786407  1.351569  0.03  -0.08  -0.01
+H     2.162790  1.302163  0.181672 -0.03  -0.18  -0.00
+H     0.000000 -1.850926 -1.268642 -0.01  -0.00  -0.00
+    `; 
+    viewer.addModel(xyz, "xyz");
+    viewer.vibrate(10, 0.8, true);
+    viewer.setStyle({}, {stick: {radius: 0.15}, sphere: {scale: 0.25}});
+    viewer.zoomTo();
+    viewer.zoom(1.4);
+    viewer.setBackgroundColor('#f9f9f9');
+	viewer.rotate(180, {x: 0, y: 1, z: 0});
+    viewer.setViewStyle({style: 'outline', color: 'black', width: 0.02});
+    viewer.animate({loop: 'backandforth', interval: 100, reps: 0});
+    viewer.render();
+$("#D0408").css("position", "relative");
+  });
+})(); 
+</script>

@@ -1,0 +1,189 @@
+---
+layout: default
+---
+<!DOCTYPE html>
+<html>
+<head>
+
+<link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.23.0/themes/prism.min.css" rel="stylesheet"/>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.23.0/prism.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<style>
+.code-container pre {
+  line-height: 1.2; /* Adjust as needed */
+  white-space: pre-wrap; /* For long lines to wrap */
+}
+
+.info-container {
+  display: flex;
+  align-items: flex-start;
+  margin-bottom: 3px; /* Adjust spacing between lines as needed */
+}
+
+.label {
+  width: 100px; /* Adjust the width for labels as needed */
+  padding-right: 10px; /* Adjust spacing between label and data as needed */
+  line-height: 1.1;
+}
+
+.data {
+  flex: 1;
+  line-height: 1.1;
+}
+
+.data pre {
+  white-space: pre-wrap; /* Preserve line breaks in Description */
+  margin: 0; /* Remove default margins for pre */
+}
+
+/* Additional styling for labels and data as needed */
+.label {
+  font-weight: bold; /* Make labels bold if desired */
+}
+
+
+</style>
+</head>
+<body>
+  <div>
+<!-- Add id and class to the Previous button -->
+<a id="previous-button" class="btn btn-primary">Previous</a>
+<!-- Add id and class to the Next button -->
+<a id="next-button" class="btn btn-primary">Next</a>
+  </div>
+  <h1>{{ page.title }}</h1>
+  <p><strong>Author:</strong> {{ page.author }}</p>
+
+<div><pre id="preContent">{{ content}}</pre></div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    var htmlContent = document.body.innerHTML;
+    var openTagToRemove = '<pre id="preContent">';
+    var closeTagToRemove = '</pre>';
+    var startIndex = htmlContent.indexOf(openTagToRemove);
+    if (startIndex !== -1) {
+        htmlContent = htmlContent.replace(openTagToRemove, '');
+        var endIndex = htmlContent.indexOf(closeTagToRemove, startIndex);
+        if (endIndex !== -1) {
+            endIndex = htmlContent.indexOf(closeTagToRemove);
+            htmlContent = htmlContent.substring(0, endIndex) + htmlContent.substring(endIndex + closeTagToRemove.length);
+        }
+        document.body.innerHTML = htmlContent;
+    }
+});
+</script>
+
+
+<div class="info-container">
+  <div class="label">Date:</div>
+  <div class="data">{{ page.date | date: "%d.%m.%Y" }}</div>
+</div>
+<div class="info-container">
+  <div class="label">Version:</div>
+  <div class="data">{{ page.version }}</div>
+</div>
+<div class="info-container">
+  <div class="label">License:</div>
+  <div class="data">{{ page.license }}</div>
+</div>
+<div class="info-container">
+  <div class="label">Description:</div>
+  <div class="data">
+    <pre>{{ page.description }}</pre>
+  </div>
+</div>
+
+
+<details id="accordion">
+  <summary><strong>View Code</strong></summary>
+  <div class="code-container">
+    <!-- Escape the content to display it as text -->
+    <pre><code id="code" class="language-js">{{ content | escape }}</code></pre>
+  </div>
+</details>
+
+
+<button onclick="copyToClipboard()" class="btn btn-primary">Copy Code to Clipboard</button>
+<div id="content-to-copy" style="display: none;">
+  <div class="code-container">
+    <!-- Escape the content to display it as text -->
+    <pre><code id="code" class="language-js">{{ content | escape }}</code></pre>
+  </div>
+</div>
+
+
+<script>
+function copyToClipboard() {
+  const contentContainer = document.getElementById('content-to-copy');
+  const codeElement = contentContainer.querySelector('code');
+  const textToCopy = codeElement.innerText;
+
+  navigator.clipboard.writeText(textToCopy).then(function() {
+    console.log('Copying to clipboard was successful!');
+  }, function(err) {
+    console.error('Could not copy text: ', err);
+  });
+}
+</script>
+
+<script>
+$(document).ready(function() {
+  /* Extract the 'tag' parameter from the URL */
+  const urlParams = new URLSearchParams(window.location.search);
+  let tag = urlParams.get('tag');
+
+  /* If no 'tag' parameter is present, use 'All' as the default tag */
+  if (!tag) {
+    tag = 'All';
+  }
+
+  /* Extract the page ID from the current page's URL */
+  const currentPagePath = window.location.pathname;
+  const currentPageID = currentPagePath.match(/([^/]+)\.html$/)[1];
+
+  /* Construct the relative path to tag_lists.json based on the current page's location */
+  const currentPageURL = window.location.href;
+  const tagListsPath = currentPageURL.substring(0, currentPageURL.lastIndexOf('/')) + '/tag_lists.json';
+
+  /* Fetch the tag data from tag_lists.json */
+  $.getJSON(tagListsPath, function(data) {
+
+    if (tag && data[tag]) {
+      const tagData = data[tag];
+
+      const currentPageIndex = tagData.indexOf(currentPageID);
+
+      if (currentPageIndex >= 0) {
+        const previousIndex = currentPageIndex - 1;
+        const nextIndex = currentPageIndex + 1;
+
+        /* Generate previous and next links based on model IDs */
+        const previousLink = (previousIndex >= 0) ? tagData[previousIndex] + '.html?tag=' + tag : null;
+        const nextLink = (nextIndex < tagData.length) ? tagData[nextIndex] + '.html?tag=' + tag : null;
+
+        /* Update the href attributes of the original buttons */
+        if (previousLink) {
+          $('#previous-button').attr('href', previousLink);
+        } else {
+          $('#previous-button').addClass('disabled');
+        }
+
+        if (nextLink) {
+          $('#next-button').attr('href', nextLink);
+        } else {
+          $('#next-button').addClass('disabled');
+        }
+      }
+    }
+  });
+});
+
+
+
+</script>
+
+
+</body>
+</html>
