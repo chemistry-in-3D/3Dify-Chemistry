@@ -1,6 +1,6 @@
 ---
 layout: page  
-title: Natural Products (1)
+title: Natural Products
 permalink: /NaturalProducts/  
 nav_order: 20
 ---
