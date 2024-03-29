@@ -1,6 +1,6 @@
 ---
 layout: page  
-title: Electronic Structure (6)
+title: Electronic Structure
 permalink: /ElectronicStructure/  
 nav_order: 4 
 ---
