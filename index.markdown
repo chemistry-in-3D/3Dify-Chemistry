@@ -26,7 +26,11 @@ Immerse yourself in our interactive molecular structures and bring a new dimensi
 </script>
 
 
-[Start Exploring Our Collection](/All/)
+[Start Exploring Our Collection](/3Dify-Chemistry/All/)
+
+## Check Out "Chemistry in 3D" - Interactive High Quality Organic Chemistry Textbooks
+
+[Chemistry in 3D](https://chemistry3d.com/) offers digital textbooks with high quality interactive 3D models of molecules. The full organic chemistry textbook will be released in 2025. [**Until then, you can check out our "Sneak Peek" textbook!**](https://www.chemistry3d.com/p/sneak-peek)
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://3Dmol.org/build/3Dmol-min.js"></script>
