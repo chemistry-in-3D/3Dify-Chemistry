@@ -18,7 +18,6 @@ Please adhere to the following guidelines:
 - **Examine Similar Models**: Check out the code of similar models already in the project for insights on how to structure and implement your contribution. Save your final file as `DXXXX.markdown` in the `_data` folder, where 'XXXX' is a unique number not yet used in the project. This will be verified during the commit process.
 - **Use the Model ID for DIV IDs**: To prevent conflicts with multiple models on the same page, use the model ID (`DXXXX`) as the `id` for your `div` elements.
 - **Include Data Inline**: Scripts should be self-contained. The only exception is for loading minified JavaScript libraries from CDNs. Embed all necessary data directly within the script as variables.
-- **Compress Large Data**: If your data exceeds 100 KB, please compress it. Guidelines for data compression can be found [here](/Compression/).
 - **Provide a Thumbnail**: Supply a square thumbnail image in PNG format. This should be placed in the `_data/thumbnails` folder.
 
 ## 2. Submit Your 3D Data
